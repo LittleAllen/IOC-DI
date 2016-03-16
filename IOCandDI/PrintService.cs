@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace IOCandDI
 {
-    public class Class1
+    public class PrintService
     {
+        public void Print(string outputStr)
+        {
+            Console.WriteLine(outputStr);
+        }
     }
 }
