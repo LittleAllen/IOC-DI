@@ -3,20 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IOCandDI.Helper.Interface;
+using IOCandDI.Service.Interface;
 
-namespace IOCandDI
+namespace IOCandDI.Service
 {
-    public class PrintServiceWithConstructorParameter
+    public class PrintService : IPrintService
     {
         public IPrintHelper PrintHelper { get; set; }
 
-        public PrintServiceWithConstructorParameter()
+        public PrintService()
         {
-        }
-
-        public PrintServiceWithConstructorParameter(IPrintHelper printHelper)
-        {
-            this.PrintHelper = printHelper;
         }
 
         public void Print(string outputStr)

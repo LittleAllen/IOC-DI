@@ -3,46 +3,28 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IOCandDI
+namespace IOCandDI.Test
 {
-    /// <summary>
-    /// Factory
-    /// </summary>
-    public static class Factory
+    public class FactoryObj
     {
         private static List<Assembly> _assemblies;
 
-        /// <summary>
-        /// Gets the instance.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns></returns>
         public static object GetInstance(Type type)
         {
             var instance = Activator.CreateInstance(type);
             return instance;
         }
 
-        /// <summary>
-        /// Gets the instance with instance constructor parameters.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="parameters">The parameters.</param>
-        /// <returns></returns>
         public static object GetInstance(Type type, List<object> parameters)
         {
             var instance = Activator.CreateInstance(type, parameters.ToArray());
             return instance;
         }
 
-        /// <summary>
-        /// Gets the instance automatic injection.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns></returns>
         public static object GetInstanceAutoInjection(Type type)
         {
             LoadAssembly();
@@ -77,9 +59,6 @@ namespace IOCandDI
             return null;
         }
 
-        /// <summary>
-        /// Loads the assembly.
-        /// </summary>
         private static void LoadAssembly()
         {
             _assemblies = new List<Assembly>();

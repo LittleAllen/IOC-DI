@@ -1,4 +1,4 @@
-﻿namespace IOCandDI
+﻿namespace IOCandDI.Helper.Interface
 {
     public interface IPrintHelper
     {

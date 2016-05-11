@@ -40,13 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsoleHelper.cs" />
+    <Compile Include="Helper\ConsoleHelper.cs" />
     <Compile Include="Factory.cs" />
-    <Compile Include="FactoryUseReflection.cs" />
-    <Compile Include="IConsoleHelper.cs" />
-    <Compile Include="PrintServiceWithConstructorParameter.cs" />
+    <Compile Include="Helper\Interface\IConsoleHelper.cs" />
+    <Compile Include="Helper\Interface\IMD5Helper.cs" />
+    <Compile Include="Service\Interface\IPrintService.cs" />
+    <Compile Include="Helper\MD5Helper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PrintService.cs" />
+    <Compile Include="Service\PrintService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
