@@ -8,17 +8,18 @@ using IOCandDI.Service.Interface;
 
 namespace IOCandDI.Service
 {
+    /// <summary>
+    /// PrintService
+    /// </summary>
     public class PrintService : IPrintService
     {
-        public IPrintHelper PrintHelper { get; set; }
-
         public PrintService()
         {
         }
 
         public void Print(string outputStr)
         {
-            this.PrintHelper.Print(outputStr);
+            Console.WriteLine(outputStr);
         }
     }
 }

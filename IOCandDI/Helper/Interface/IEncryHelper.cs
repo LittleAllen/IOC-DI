@@ -1,6 +1,6 @@
 ﻿namespace IOCandDI.Helper.Interface
 {
-    public interface IMD5Helper
+    public interface IEncryHelper
     {
         string Encryption(string sourceStr);
     }

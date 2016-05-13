@@ -12,7 +12,7 @@ namespace IOCandDI
     /// MD5Helper
     /// </summary>
     /// <seealso cref="IOCandDI.Helper.Interface.IMD5Helper" />
-    public class MD5Helper : IMD5Helper
+    public class MD5Helper : IEncryHelper
     {
         /// <summary>
         /// Encryptions the specified source string.

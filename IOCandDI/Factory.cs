@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using IOCandDI.Service;
 
 namespace IOCandDI
 {
@@ -22,8 +23,7 @@ namespace IOCandDI
         /// <returns></returns>
         public static object GetInstance(Type type)
         {
-            var instance = Activator.CreateInstance(type);
-            return instance;
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -34,8 +34,7 @@ namespace IOCandDI
         /// <returns></returns>
         public static object GetInstance(Type type, List<object> parameters)
         {
-            var instance = Activator.CreateInstance(type, parameters.ToArray());
-            return instance;
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -45,36 +44,7 @@ namespace IOCandDI
         /// <returns></returns>
         public static object GetInstanceAutoInjection(Type type)
         {
-            LoadAssembly();
-
-            var realInstanceType =
-                _assemblies.Select(p => p.ExportedTypes.First(t => t.IsInterface == false && type.IsAssignableFrom(t)))
-                    .First();
-            var constructorInfos = realInstanceType.GetConstructors();
-            var constructorInfo = constructorInfos.First(p => p.GetParameters().Count() > 0);
-            if (constructorInfo != null)
-            {
-                var paramse = constructorInfo.GetParameters();
-                var objs = new List<object>();
-                foreach (var parameterInfo in paramse)
-                {
-                    var realType =
-                            _assemblies.Select(p => p.ExportedTypes.First(t => t.IsInterface == false && parameterInfo.ParameterType.IsAssignableFrom(t)))
-                            .First();
-                    var tmp = GetInstance(realType);
-                    objs.Add(tmp);
-                }
-
-                var instance = Activator.CreateInstance(realInstanceType, objs.ToArray());
-                return instance;
-            }
-            else
-            {
-                var instance = Activator.CreateInstance(realInstanceType);
-                return instance;
-            }
-
-            return null;
+            throw new NotImplementedException();
         }
 
         /// <summary>
