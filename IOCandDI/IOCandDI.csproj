@@ -43,7 +43,7 @@
     <Compile Include="Helper\ConsoleHelper.cs" />
     <Compile Include="Factory.cs" />
     <Compile Include="Helper\Interface\IConsoleHelper.cs" />
-    <Compile Include="Helper\Interface\IMD5Helper.cs" />
+    <Compile Include="Helper\Interface\IEncryHelper.cs" />
     <Compile Include="Service\Interface\IPrintService.cs" />
     <Compile Include="Helper\MD5Helper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

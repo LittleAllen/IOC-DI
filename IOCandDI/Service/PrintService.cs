@@ -13,13 +13,20 @@ namespace IOCandDI.Service
     /// </summary>
     public class PrintService : IPrintService
     {
+        private IPrintHelper _printHelper;
+
         public PrintService()
         {
         }
 
+        public PrintService(IPrintHelper printHelper)
+        {
+            this._printHelper = printHelper;
+        }
+
         public void Print(string outputStr)
         {
-            Console.WriteLine(outputStr);
+            this._printHelper.Print(outputStr);
         }
     }
 }

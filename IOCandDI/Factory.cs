@@ -23,7 +23,17 @@ namespace IOCandDI
         /// <returns></returns>
         public static object GetInstance(Type type)
         {
-            throw new NotImplementedException();
+            //// 載入dll檔
+            LoadAssembly();
+
+            //// 預防傳進來的Type為Interface，所以要取實際實作的型別
+            var realInstanceType =
+                _assemblies.Select(
+                    p => p.ExportedTypes.First(
+                        t => t.IsInterface == false &&
+                             type.IsAssignableFrom(t))).First();
+            var instance = Activator.CreateInstance(realInstanceType);
+            return instance;
         }
 
         /// <summary>
@@ -34,7 +44,14 @@ namespace IOCandDI
         /// <returns></returns>
         public static object GetInstance(Type type, List<object> parameters)
         {
-            throw new NotImplementedException();
+            LoadAssembly();
+            var realInstanceType =
+                _assemblies.Select(
+                    p => p.ExportedTypes.First(
+                        t => t.IsInterface == false &&
+                             type.IsAssignableFrom(t))).First();
+            var instance = Activator.CreateInstance(realInstanceType, parameters.ToArray());
+            return instance;
         }
 
         /// <summary>
@@ -44,7 +61,49 @@ namespace IOCandDI
         /// <returns></returns>
         public static object GetInstanceAutoInjection(Type type)
         {
-            throw new NotImplementedException();
+            LoadAssembly();
+            var realInstanceType =
+                _assemblies.Select(
+                    p => p.ExportedTypes.First(
+                        t => t.IsInterface == false &&
+                             type.IsAssignableFrom(t))).First();
+
+            //// 取得Type的所有建構式清單
+            var constructorInfos =
+                realInstanceType.GetConstructors();
+
+            //// 從建構式清單中取出有傳入參數的建構式
+            var constructorInfo =
+                constructorInfos.FirstOrDefault(p => p.GetParameters().Count() > 0);
+            if (constructorInfo != null)
+            {
+                var objs = new List<object>();
+
+                ////取出建構式的傳入參數
+                var parameters = constructorInfo.GetParameters();
+
+                ////產生建構式所需要的參數實體
+                foreach (var parameter in parameters)
+                {
+                    var realParameterType =
+                        _assemblies.Select(
+                            p => p.ExportedTypes.First(
+                                t => t.IsInterface == false &&
+                                     parameter.ParameterType.IsAssignableFrom(t))).First();
+
+                    var parameterInstance =
+                        GetInstanceAutoInjection(realParameterType);
+                    objs.Add(parameterInstance);
+                }
+
+                var instance = Activator.CreateInstance(realInstanceType, objs.ToArray());
+                return instance;
+            }
+            else
+            {
+                var instance = Activator.CreateInstance(realInstanceType);
+                return instance;
+            }
         }
 
         /// <summary>

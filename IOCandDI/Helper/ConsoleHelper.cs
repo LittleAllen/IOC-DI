@@ -9,11 +9,17 @@ namespace IOCandDI
 {
     public class ConsoleHelper : IPrintHelper
     {
+        private IEncryHelper _md5Helper;
         /// <summary>
         /// Initializes a new instance of the <see cref="ConsoleHelper"/> class.
         /// </summary>
         public ConsoleHelper()
         {
+        }
+
+        public ConsoleHelper(IEncryHelper md5Helper)
+        {
+            this._md5Helper = md5Helper;
         }
 
         /// <summary>
@@ -22,7 +28,8 @@ namespace IOCandDI
         /// <param name="output">The output.</param>
         public void Print(string output)
         {
-            Console.WriteLine(output);
+            var encryStr = this._md5Helper.Encryption(output);
+            Console.WriteLine($"{output}:{encryStr}");
         }
     }
 }
